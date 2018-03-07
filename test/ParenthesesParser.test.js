@@ -50,7 +50,7 @@ describe('ParenthesesParser', () => {
                 expect(subject.parse(exp).Passed).to.be.false;
             });
         });
-        it(`should return failure details`, () => {
+        it(`should return specific error message on failure`, () => {
 
             let exp = "[(a])";
             let expected = "Parsing Error position:3, expected:), found:]";
@@ -58,7 +58,7 @@ describe('ParenthesesParser', () => {
             expect(result.ErrorMessage).to.equal(expected);
             expect(result.ErrorMessage.startsWith(ParenthesesParser.PARSING_ERROR)).to.be.true;
         });
-        it(`should return failure details on complex expression`, () => {
+        it(`should return specific error message on failure, complex expression`, () => {
 
             let exp = "((((([[[{{{a)}}}]]])))))";
             let expected = "Parsing Error position:12, expected:}, found:)";
@@ -80,7 +80,7 @@ describe('ParenthesesParser', () => {
         let invalidExpressionsMissingClosingParentheses = [
             "(ok", "{ok", "[ok",
         ];
-        it(`should return failure details on ${invalidExpressionsMissingClosingParentheses}`, () => {
+        it(`should return error message on failure ${invalidExpressionsMissingClosingParentheses}`, () => {
 
             invalidExpressionsMissingClosingParentheses.forEach((exp) => {
 
