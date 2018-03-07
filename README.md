@@ -1,7 +1,7 @@
 # ParenthesesParser
 
 Given a string containing the characters '(', ')', '{', '}', '[' and ']'
-and any other characters in between determine if the input string is valid.
+and any other characters in between determine if the Parentheses are balanced.
 
 ## Valid Expression
  - "()" 
