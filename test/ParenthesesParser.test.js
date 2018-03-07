@@ -11,7 +11,7 @@ describe('ParenthesesParser', () => {
         subject = new ParenthesesParser();
     });
     
-    describe('Valid Expressions', () => {
+    describe('Valid expressions', () => {
 
         let validExpressions = [
             "()" ,"(a)", "((((()))))", 
@@ -21,6 +21,9 @@ describe('ParenthesesParser', () => {
             "([ok])" ,
             "{([ok])}" ,
             "function() { return (1+1); }" ,
+            "<(>)", // This one passed because '<' and '>' are not considered Parentheses
+            "(\\)", "(\\//)", "(\")",
+            "Valid-Expression", "(Valid-Expression)"
         ];
         it(`should return passed on expression '${validExpressions}'`, () => {
 
@@ -30,10 +33,10 @@ describe('ParenthesesParser', () => {
         });
     });
 
-    describe('Invalid Expressions', () => {
+    describe('Invalid expressions', () => {
        
         let invalidExpressions = [
-            "(a",
+            "(invalid-expression", "invalid-expression)",
             "(" , "((((())))", , "(((((])))))", 
             "[", "{",
             "(){[]" ,
@@ -79,22 +82,22 @@ describe('ParenthesesParser', () => {
 
     describe('Utility methods', () => {
 
-        it(`isOpenParenthese() Positive cases`, () => {
+        it(`isOpenParenthese() positive cases`, () => {
             ['(', "{", "["].forEach((c) => {
                 expect(subject.isOpenParenthese(c)).to.be.true;
             });
         });
-        it(`isOpenParenthese() Negative cases`, () => {
+        it(`isOpenParenthese() negative cases`, () => {
             ['a', "b", "c"].forEach((c) => {
                 expect(subject.isOpenParenthese(c)).to.be.false;
             });
         });
-        it(`isCloseParenthese() Positive cases`, () => {
+        it(`isCloseParenthese() positive cases`, () => {
             [')', "}", "]"].forEach((c) => {
                 expect(subject.isCloseParenthese(c)).to.be.true;
             });
         });
-        it(`isCloseParenthese() Negative cases`, () => {
+        it(`isCloseParenthese() negative cases`, () => {
             ['a', "b", "c"].forEach((c) => {
                 expect(subject.isCloseParenthese(c)).to.be.false;
             });
