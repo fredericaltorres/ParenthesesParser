@@ -31,7 +31,7 @@ function ParenthesesParser(expression) {
         // if stack is empty the expression is valid else we have an invalid expression
         // with a missing closing parenthese like this '(ok'
         const passed = stack.isEmpty();
-        return this.createResult(passed, passed ? `` : `expected:"${this._parentheseDefinition[stack.pop()]}" at end of expression`);
+        return this.createResult(passed, passed ? null : `expected:"${this._parentheseDefinition[stack.pop()]}" at end of expression`);
     }
     this.createResult = function (passed, errorMsg) {
         return {
