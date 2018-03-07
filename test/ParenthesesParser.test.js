@@ -50,24 +50,24 @@ describe('ParenthesesParser', () => {
         it(`should return failure details`, () => {
 
             let exp = "[(a])";
-            let result = subject.parse(exp);
             let expected = "Parsing Error position:3, expected:), found:]";
+            let result = subject.parse(exp);
             expect(result.ErrorMessage).to.equal(expected);
+            expect(result.ErrorMessage.startsWith(ParenthesesParser.PARSING_ERROR)).to.be.true;
         });
         it(`should return failure details on complex expression`, () => {
 
             let exp = "((((([[[{{{a)}}}]]])))))";
-            let result = subject.parse(exp);
             let expected = "Parsing Error position:12, expected:}, found:)";
+            let result = subject.parse(exp);
             expect(result.ErrorMessage).to.equal(expected);
         });
     });
 
     describe('Invalid parameters', () => {
 
-        it(`should return passed on empty string`, () => {
-            let result = subject.parse("");
-            expect(result.Passed).to.be.true; // TO DO 
+        it(`should throw exception on empty string`, () => {
+            expect(function () { subject.parse("");}).to.throw(ParenthesesParser.EXPRESSION_CANNOT_BE_NULL_OR_UNDEFINED);
         });
         it(`should throw exception on null string`, () => {
             expect(function () { subject.parse(null);}).to.throw(ParenthesesParser.EXPRESSION_CANNOT_BE_NULL_OR_UNDEFINED);
@@ -100,5 +100,4 @@ describe('ParenthesesParser', () => {
             });
         });
     });
-
 });

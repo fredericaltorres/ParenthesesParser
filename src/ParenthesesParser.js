@@ -11,7 +11,7 @@ function ParenthesesParser(expression) {
     };
     this.parse = function(expression) {
 
-        if(expression === null || expression === undefined)
+        if(expression === null || expression === undefined || expression === "")
             throw new Error(ParenthesesParser.EXPRESSION_CANNOT_BE_NULL_OR_UNDEFINED);
 
         let errorMsg        = "";            
