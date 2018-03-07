@@ -1,7 +1,7 @@
 # ParenthesesParser
 
 Given a string containing the characters '(', ')', '{', '}', '[' and ']'
-and any other characters in between determine if the Parentheses are balanced.
+and any other characters in between determine if the parentheses are balanced.
 
 ## Valid Expression
  - "()" 
@@ -15,9 +15,3 @@ and any other characters in between determine if the Parentheses are balanced.
  - "([)]"
  - "([ok]})"
  - "{([ok])})" 
-
-### Push
-
-```bash
-git push -u origin master
-```
