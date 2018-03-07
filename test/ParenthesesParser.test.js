@@ -14,9 +14,10 @@ describe('ParenthesesParser', () => {
     describe('Valid Expressions', () => {
 
         let validExpressions = [
-            "(a)",
-            "()" , "((((()))))", 
-            "(){}[]" ,
+            "()" ,"(a)", "((((()))))", 
+            "((((([[[]]])))))",  "((((([[[{{{}}}]]])))))",  "((((([[[{{{a}}}]]])))))", 
+            "function(abs(compute(run(exec(array[list[array[object{object{object[1]}}]]])))))", 
+            "(){}[]" , "(()){{}}[[]]" ,
             "([ok])" ,
             "{([ok])}" ,
             "function() { return (1+1); }" ,
@@ -45,6 +46,20 @@ describe('ParenthesesParser', () => {
             invalidExpressions.forEach((exp) =>{
                 expect(subject.parse(exp).Passed).to.be.false;
             });
+        });
+        it(`should return failure details`, () => {
+
+            let exp = "[(a])";
+            let result = subject.parse(exp);
+            let expected = "Parsing Error position:3, expected:), found:]";
+            expect(result.ErrorMessage).to.equal(expected);
+        });
+        it(`should return failure details on complex expression`, () => {
+
+            let exp = "((((([[[{{{a)}}}]]])))))";
+            let result = subject.parse(exp);
+            let expected = "Parsing Error position:12, expected:}, found:)";
+            expect(result.ErrorMessage).to.equal(expected);
         });
     });
 
