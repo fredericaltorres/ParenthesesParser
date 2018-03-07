@@ -65,6 +65,25 @@ describe('ParenthesesParser', () => {
             let result = subject.parse(exp);
             expect(result.ErrorMessage).to.equal(expected);
         });
+        it(`should return specific error message on failure on '(ok'`, () => {
+
+            let exp = "(ok";
+            let expected = 'Parsing Error expected:")" at end of expression';
+            let result = subject.parse(exp);
+            expect(result.ErrorMessage).to.equal(expected);
+        });
+
+        let invalidExpressionsMissingClosingParentheses = [
+            "(ok", "{ok", "[ok",
+        ];
+        it(`should return failure details on ${invalidExpressionsMissingClosingParentheses}`, () => {
+
+            invalidExpressionsMissingClosingParentheses.forEach((exp) => {
+
+                let result = subject.parse(exp);
+                expect(result.ErrorMessage.startsWith(ParenthesesParser.PARSING_ERROR)).to.be.true;
+            });
+        });
     });
 
     describe('Invalid parameters', () => {
