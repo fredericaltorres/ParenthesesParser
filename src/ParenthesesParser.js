@@ -3,7 +3,6 @@ let print = console.log;
 
 function ParenthesesParser(expression) {
 
-    this._result = null;
     this._parentheseDefinition = {
         '(' : ')', 
         '{' : '}', 
@@ -11,16 +10,13 @@ function ParenthesesParser(expression) {
     };
     this.parse = function(expression) {
 
-        if(expression === null || expression === undefined || expression === "")
+        if(!expression)
             throw new Error(ParenthesesParser.EXPRESSION_CANNOT_BE_NULL_OR_UNDEFINED);
 
-        let errorMsg        = "";            
-        let passed          = false;
-        let stack           = new Stack();
-        this._expression    = expression;
+        let stack = new Stack();
 
-        for(let i = 0; i < this._expression.length; i++) {
-            let c = this._expression.charAt(i);
+        for(let i = 0; i < expression.length; i++) {
+            let c = expression.charAt(i);
             if(this.isOpenParenthese(c)) {
                 stack.push(c);
             }
@@ -35,12 +31,11 @@ function ParenthesesParser(expression) {
         return this.createResult(stack.isEmpty()); // Parse expression with success
     }
     this.createResult = function (passed, errorMsg) {
-        this._result = {
+        return {
             Expression   : this._expression,
             Passed       : passed,
             ErrorMessage : ParenthesesParser.PARSING_ERROR + " " + errorMsg
         };
-        return this._result;
     }
     this.isOpenParenthese = function(c) {
 
@@ -53,6 +48,6 @@ function ParenthesesParser(expression) {
 };
 
 ParenthesesParser.EXPRESSION_CANNOT_BE_NULL_OR_UNDEFINED = "expression cannot be null or undefined";
-ParenthesesParser.PARSING_ERROR = "Parsing Error";
+ParenthesesParser.PARSING_ERROR                          = "Parsing Error";
 
 module.exports = ParenthesesParser;
