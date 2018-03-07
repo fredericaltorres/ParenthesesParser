@@ -65,6 +65,10 @@ describe('ParenthesesParser', () => {
             let result = subject.parse(exp);
             expect(result.ErrorMessage).to.equal(expected);
         });
+    });
+
+    describe('Invalid expressions, missing closing parenthese', () => {
+
         it(`should return specific error message on failure on '(ok'`, () => {
 
             let exp = "(ok";
